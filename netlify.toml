@@ -1,0 +1,10 @@
+[build]
+    publish = "packages/www/public/"
+    command = "yarn workspace www build && cd functions graphql && yarn"
+    functions = "functions/"
+
+[dev]
+    framework = "#custom"
+    command = "yarn workspace www dev"
+    targetPort = 5000
+    publish = "packages/public"

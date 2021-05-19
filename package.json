@@ -1,0 +1,14 @@
+{
+  "name": "svelte-netlify-todo",
+  "version": "1.0.0",
+  "description": "Svelte + GraphQL App built for hosting on Netlify",
+  "main": "index.js",
+  "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "yarn workspace www run dev"
+  }
+}
