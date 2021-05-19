@@ -10,5 +10,8 @@
   ],
   "scripts": {
     "dev": "yarn workspace www run dev"
+  },
+  "dependencies": {
+    "netlify-lambda": "^2.0.7"
   }
 }

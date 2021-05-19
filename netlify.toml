@@ -8,3 +8,5 @@
     command = "yarn workspace www dev"
     targetPort = 5000
     publish = "packages/public"
+    functions = "functions/"
+
