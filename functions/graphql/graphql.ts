@@ -1,22 +1,17 @@
 import { ApolloServer, gql } from "apollo-server-lambda";
-
-const typeDefs = gql`
-  type Query {
-    hello(name: String): String
-  }
-`;
-
-const resolvers = {
-  Query: {
-    hello: (parent, { name }, context) => {
-      return `Hello, ${name || "Stranger"}!`;
-    },
-  },
-};
+import typeDefs from "./src/typeDefs";
+import resolvers from "./src/resolvers";
 
 const server = new ApolloServer({
   typeDefs,
   resolvers,
+  context: ({ context }) => {
+    if (context.clientContext.user) {
+      return { user: context.clientContext.user.sub };
+    }
+
+    return {};
+  },
   playground: true,
   introspection: true,
 });
