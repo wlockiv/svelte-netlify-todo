@@ -1,43 +1,51 @@
 <script>
-  import { handleLogin, handleLogout } from "../identity";
+  import { handleLogin, handleLogout } from "../services/identity";
   import { user } from "../store";
   import { link } from "svelte-routing";
 
-  $: isLoggedIn = !$user;
+  $: isLoggedIn = Boolean($user);
 </script>
 
 <nav>
-  <ul>
-    <li class="nav-item">
-      <a class="nav-link" href="/" use:link>Home</a>
-    </li>
-    {#if isLoggedIn}
-      <li class="nav-item" style="margin-left: auto;">
-        <a class="nav-link" href="#" on:click={handleLogin}>Login</a>
-      </li>
-    {:else}
-      <li class="nav-item" style="margin-left: auto;">
-        <a class="nav-link" href="/user" use:link>{$user.name}</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/" on:click={handleLogout}>Logout</a>
-      </li>
-    {/if}
-  </ul>
+  <!-- Right Nav -->
+  <div class="nav-item">
+    <a href="/" use:link>Home</a>
+  </div>
+  {#if isLoggedIn}
+    <div class="nav-item">
+      <a href="/tasks" use:link>Tasks</a>
+    </div>
+  {/if}
+  <div class="flex-spacer" />
+  <!-- Left Nav -->
+  {#if isLoggedIn}
+    <div class="nav-item" style="">
+      <a href="/profile" use:link>{$user.name.split(" ")[0]}</a>
+    </div>
+    <div class="nav-item">
+      <a href="/" on:click={handleLogout}>Logout</a>
+    </div>
+  {:else}
+    <div class="nav-item">
+      <div on:click={handleLogin}>Login</div>
+    </div>
+  {/if}
 </nav>
 
 <style>
+  nav {
+    margin-left: auto;
+    list-style: none;
+    display: flex;
+    gap: 8px;
+    padding: 0 8px;
+  }
+
+  .flex-spacer {
+    flex-grow: 1;
+  }
+
   .nav-item {
-    margin-left: 4px;
-  }
-
-  .nav-item > button {
-    margin: 0;
-    background-color: transparent;
-    color: #ccc;
-  }
-
-  .nav-item .nav-link {
     margin: 0;
     border: solid 1px #ccc;
     border-radius: 4px;
@@ -46,10 +54,12 @@
     color: #ccc;
   }
 
-  ul {
-    margin-left: auto;
-    list-style: none;
-    display: flex;
-    padding: 0 8px;
+  .nav-item:hover {
+    cursor: pointer;
+    text-decoration: underline;
+  }
+
+  a {
+    color: #ccc;
   }
 </style>

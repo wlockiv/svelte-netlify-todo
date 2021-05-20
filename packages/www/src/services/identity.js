@@ -1,5 +1,7 @@
 import netlifyIdentity from "netlify-identity-widget";
-import { user } from "./store";
+import { getClient } from "svelte-apollo";
+import { navigate } from "svelte-routing";
+import { user } from "../store";
 
 export function initializeIdentity() {
   netlifyIdentity.init();
@@ -8,10 +10,14 @@ export function initializeIdentity() {
   netlifyIdentity.on("login", (_user) => {
     user.login(_user);
     netlifyIdentity.close();
+    navigate("/tasks");
   });
 
   netlifyIdentity.on("logout", () => {
     user.logout();
+    const client = getClient();
+    client.clearStore();
+    navigate("/");
   });
 }
 

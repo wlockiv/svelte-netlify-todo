@@ -9,7 +9,7 @@
     "packages/*"
   ],
   "scripts": {
-    "dev": "yarn workspace www run dev"
+    "dev": "netlify dev"
   },
   "dependencies": {
     "netlify-lambda": "^2.0.7"
