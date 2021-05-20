@@ -5,6 +5,7 @@
 
 [dev]
     framework = "#custom"
+    # command = "yarn workspace www start:dev"
     command = "yarn workspace www dev"
     targetPort = 5000
     publish = "packages/public"
