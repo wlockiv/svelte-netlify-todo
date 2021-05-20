@@ -22,10 +22,4 @@
     border: solid 1px #ccc;
     border-radius: 4px;
   }
-
-  @media (min-width: 640px) {
-    main {
-      max-width: none;
-    }
-  }
 </style>

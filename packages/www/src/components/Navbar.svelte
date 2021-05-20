@@ -1,7 +1,7 @@
 <script>
   import { handleLogin, handleLogout } from "../identity";
   import { user } from "../store";
-  import { Link, link } from "svelte-routing";
+  import { link } from "svelte-routing";
 
   $: isLoggedIn = !$user;
 </script>
@@ -13,14 +13,14 @@
     </li>
     {#if isLoggedIn}
       <li class="nav-item" style="margin-left: auto;">
-        <button on:click={handleLogin}>Login</button>
+        <a class="nav-link" href="#" on:click={handleLogin}>Login</a>
       </li>
     {:else}
       <li class="nav-item" style="margin-left: auto;">
         <a class="nav-link" href="/user" use:link>{$user.name}</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/">Logout</a>
+        <a class="nav-link" href="/" on:click={handleLogout}>Logout</a>
       </li>
     {/if}
   </ul>

@@ -17,8 +17,8 @@
     <Navbar />
   </header>
   <main>
-    <Route path="/" component={Home} />
-    <Route path="/user" component={User} />
+    <Route path="/"><Home /></Route>
+    <Route path="/user"><User /></Route>
   </main>
 </Router>
 
