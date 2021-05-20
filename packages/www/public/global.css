@@ -62,6 +62,10 @@ button:disabled {
   color: #999;
 }
 
+button:hover {
+  text-decoration: underline;
+}
+
 button:not(:disabled):active {
   background-color: #ddd;
 }

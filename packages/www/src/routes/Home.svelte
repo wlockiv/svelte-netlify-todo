@@ -1,3 +1,7 @@
+<script>
+  import TaskTable from "../components/TaskTable";
+</script>
+
 <main>
   <h1>Netlify/Svelte</h1>
   <h2>Todo Application</h2>
