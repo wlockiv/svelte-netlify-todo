@@ -8,6 +8,8 @@
     input: "",
   };
 
+  let submitPromise;
+
   const dispatch = createEventDispatcher();
   const createTodo = mutation(CREATE_TODO);
 
@@ -29,16 +31,26 @@
       console.log(error);
     }
   }
+
+  function handleSubmit() {
+    submitPromise = handleCreateTodo();
+  }
 </script>
 
 <div class="form-container">
-  <form action="submit" on:submit|preventDefault={handleCreateTodo}>
+  <form action="submit" on:submit|preventDefault={handleSubmit}>
     <input
       type="text"
       bind:value={formState.input}
       placeholder="Type a task then click 'Add'."
     />
-    <button type="submit">Add</button>
+    {#await submitPromise}
+      <button type="submit" disabled="true">...</button>
+    {:then}
+      <button type="submit">Add</button>
+    {:catch error}
+      <button type="submit">Add</button>
+    {/await}
   </form>
   {#if !formState.input && !formState.initial}
     <sub style="margin-top: 0">Add text before submitting</sub>
