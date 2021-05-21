@@ -3,7 +3,7 @@
   import { UPDATE_TODO } from "./queries";
 
   export let task;
-  $: ({ id, text, done } = task);
+  $: ({ id, text, done, __typename } = task);
 
   let promise;
 
@@ -13,6 +13,14 @@
     try {
       await updateTodo({
         variables: { id, text, done: !done },
+        optimisticResponse: {
+          updateTodo: {
+            id,
+            text,
+            done: !done,
+            __typename,
+          },
+        },
       });
     } catch (error) {
       console.log(error);
