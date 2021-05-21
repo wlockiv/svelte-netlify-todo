@@ -39,33 +39,21 @@
   <section class="task-display">
     <TaskCreationForm on:refetchtodos={todos.refetch} />
     <hr />
-    <div class="task-group">
-      <div class="todo-header">
-        <h3>Todo:</h3>
-        <label for="show-content">
-          Show Done
-          <input
-            name="show-content"
-            type="checkbox"
-            style="margin: 0"
-            bind:checked={showDone}
-          />
-        </label>
-      </div>
-      {#each $todos.data.todos.filter((t) => !t.done) as task (task.id)}
-        <div
-          in:receive|local={{ key: task.id }}
-          out:send|local={{ key: task.id }}
-          animate:flip={{ duration: 200 }}
-        >
-          <TaskRow {task} />
-        </div>
-      {/each}
-    </div>
-    {#if showDone}
+    <div class="task-tables">
       <div class="task-group">
-        <h3>Done:</h3>
-        {#each $todos.data.todos.filter((t) => t.done) as task (task.id)}
+        <div class="todo-header">
+          <h3>Todo:</h3>
+          <label for="show-content">
+            Show Done
+            <input
+              name="show-content"
+              type="checkbox"
+              style="margin: 0"
+              bind:checked={showDone}
+            />
+          </label>
+        </div>
+        {#each $todos.data.todos.filter((t) => !t.done) as task (task.id)}
           <div
             in:receive|local={{ key: task.id }}
             out:send|local={{ key: task.id }}
@@ -75,7 +63,21 @@
           </div>
         {/each}
       </div>
-    {/if}
+      {#if showDone}
+        <div class="task-group">
+          <h3>Done:</h3>
+          {#each $todos.data.todos.filter((t) => t.done) as task (task.id)}
+            <div
+              in:receive|local={{ key: task.id }}
+              out:send|local={{ key: task.id }}
+              animate:flip={{ duration: 200 }}
+            >
+              <TaskRow {task} />
+            </div>
+          {/each}
+        </div>
+      {/if}
+    </div>
   </section>
 {/if}
 
@@ -83,10 +85,13 @@
   .task-display {
     display: flex;
     flex-direction: column;
-    gap: 24px;
     border-radius: 4px;
     width: 100%;
     max-width: 720px;
+  }
+
+  .task-display > :first-child {
+    margin-top: 0;
   }
 
   .todo-header {
@@ -98,13 +103,26 @@
   .task-group {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    margin-top: 16px;
+  }
+
+  .task-tables > :first-child {
+    margin-top: 0;
+  }
+
+  .task-group > div {
+    margin-top: 8px;
+  }
+
+  .task-group > :first-child {
+    margin-top: 0px;
   }
 
   hr {
     width: 99%;
     border: unset;
     border-top: solid 1px #aaa;
+    margin: 24px auto;
   }
 
   h3 {
