@@ -10,7 +10,7 @@
 
 <style>
   .profile-card {
-    width: 75%;
+    width: 90%;
     max-width: 400px;
     border: solid 1px #ccc;
     border-radius: 4px;

@@ -3,7 +3,7 @@
 </script>
 
 <main>
-  <h1>Netlify/Svelte</h1>
+  <h1>Netlify & Svelte</h1>
   <h2>Todo Application</h2>
   <p>
     An application using Svelte for fontend and Netlify for hosting/serverless

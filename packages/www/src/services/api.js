@@ -26,5 +26,7 @@ const authLink = apolloSetContext((_, { headers }) => {
 export const client = new ApolloClient({
   uri: "/.netlify/functions/graphql",
   link: authLink.concat(httpLink),
-  cache: new InMemoryCache(),
+  cache: new InMemoryCache({
+    addTypename: true,
+  }),
 });

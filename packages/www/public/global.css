@@ -47,6 +47,10 @@ textarea {
   color: #ccc;
 }
 
+input:focus-visible {
+  outline-color: #ff3e0080;
+}
+
 input:disabled {
   color: #ccc;
 }

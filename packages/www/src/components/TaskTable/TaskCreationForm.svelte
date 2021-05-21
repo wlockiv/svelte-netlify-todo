@@ -1,21 +1,29 @@
 <script>
-  import gql from "graphql-tag";
   import { mutation } from "svelte-apollo";
   import { createEventDispatcher } from "svelte";
   import { CREATE_TODO } from "./queries";
 
-  let createTodoInput;
+  const formState = {
+    initial: true,
+    input: "",
+  };
 
   const dispatch = createEventDispatcher();
-
   const createTodo = mutation(CREATE_TODO);
 
   async function handleCreateTodo() {
+    formState.initial = false;
+
+    if (!formState.input) {
+      emptyError = true;
+      return;
+    }
+
     try {
       await createTodo({
-        variables: { text: createTodoInput },
+        variables: { text: formState.input },
       });
-      createTodoInput = null;
+      formState.input = null;
       dispatch("refetchtodos");
     } catch (error) {
       console.log(error);
@@ -23,28 +31,49 @@
   }
 </script>
 
-<form action="submit" on:submit|preventDefault={handleCreateTodo}>
-  <input
-    type="text"
-    bind:value={createTodoInput}
-    placeholder="Type a task then click 'Add'."
-  />
-  <button type="submit">Add</button>
-</form>
+<div class="form-container">
+  <form action="submit" on:submit|preventDefault={handleCreateTodo}>
+    <input
+      type="text"
+      bind:value={formState.input}
+      placeholder="Type a task then click 'Add'."
+    />
+    <button type="submit">Add</button>
+  </form>
+  {#if !formState.input && !formState.initial}
+    <sub style="margin-top: 0">Add text before submitting</sub>
+  {/if}
+</div>
 
 <style>
-  form {
+  .form-container {
     border-radius: 4px;
     border: solid 1px #ccc;
     display: flex;
-    gap: 12px;
+    flex-direction: column;
+    gap: 4px;
     padding: 8px;
+  }
+
+  form {
+    display: flex;
+    gap: 8px;
+  }
+
+  sub {
+    padding-left: 4px;
+    color: #cccccc80;
+    border-left: solid 1px #cccccc80;
+    text-align: left;
+    margin: 0;
   }
 
   input {
     margin: 0;
     background-color: transparent;
+    min-width: unset;
     flex-grow: 1;
+    flex-shrink: 1;
   }
 
   button {

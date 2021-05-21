@@ -1,9 +1,9 @@
 <script>
-  import gql from "graphql-tag";
   import { mutation } from "svelte-apollo";
   import { UPDATE_TODO } from "./queries";
 
-  export let id, text, done;
+  export let task;
+  $: ({ id, text, done } = task);
 
   let promise;
 
@@ -29,7 +29,7 @@
   <div class="task-complete">
     {#await promise}
       Loading...
-    {:then value}
+    {:then}
       <button on:click={handleClick}>
         {#if done}
           Done
