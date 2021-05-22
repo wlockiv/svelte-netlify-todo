@@ -10,11 +10,11 @@
   import { client } from "./services/api";
   import { initializeIdentity } from "./services/identity";
   import { user } from "./store";
-  import { Content } from "carbon-components-svelte";
-
-  initializeIdentity();
 
   setClient(client);
+  initializeIdentity(() => {
+    client.clearStore();
+  });
 
   $: $user,
     (client.headers = {

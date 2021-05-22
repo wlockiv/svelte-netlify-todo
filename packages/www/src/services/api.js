@@ -1,9 +1,8 @@
 import {
   ApolloClient,
   createHttpLink,
-  ApolloCache,
   InMemoryCache,
-} from "@apollo/client";
+} from "@apollo/client/core";
 import { setContext as apolloSetContext } from "@apollo/client/link/context";
 import { get } from "svelte/store";
 import { user } from "../store";

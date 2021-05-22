@@ -3,17 +3,18 @@
     Header,
     HeaderUtilities,
     HeaderGlobalAction,
-    HeaderActionLink,
-    HeaderNavItem,
-    HeaderNav,
-    HeaderAction,
     Button,
   } from "carbon-components-svelte";
   import UserAvatar20 from "carbon-icons-svelte/lib/UserAvatar20";
   import ListChecked20 from "carbon-icons-svelte/lib/ListChecked20";
   import { navigate } from "svelte-routing";
   import { user } from "../store";
-  import { handleLogin } from "../services/identity";
+  // import { handleLogin } from "../services/identity";
+  import netlifyIdentity from "netlify-identity-widget";
+
+  function handleLogin() {
+    netlifyIdentity.open("login");
+  }
 </script>
 
 <Header
