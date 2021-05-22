@@ -1,5 +1,6 @@
 <script>
-  import { Tile } from "carbon-components-svelte";
+  import { ClickableTile, Tile } from "carbon-components-svelte";
+  import { handleLogout } from "../services/identity";
   import { user } from "../store";
 </script>
 
@@ -14,6 +15,12 @@
   <h3>Email</h3>
   <p>{$user.email}</p>
 </Tile>
+<hr />
+<h2>Settings</h2>
+<ClickableTile style="margin-top:8px" on:click={handleLogout}>
+  <h3>Ready to go?</h3>
+  <p>Logout</p>
+</ClickableTile>
 
 <style>
   h1 {

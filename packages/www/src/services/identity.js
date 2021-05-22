@@ -14,10 +14,10 @@ export function initializeIdentity() {
   });
 
   netlifyIdentity.on("logout", () => {
+    navigate("/");
     user.logout();
     const client = getClient();
     client.clearStore();
-    navigate("/");
   });
 }
 

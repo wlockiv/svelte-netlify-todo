@@ -6,7 +6,11 @@
   import { quintOut } from "svelte/easing";
   import { flip } from "svelte/animate";
 
-  import { Toggle } from "carbon-components-svelte";
+  import {
+    Loading,
+    SkeletonPlaceholder,
+    Toggle,
+  } from "carbon-components-svelte";
 
   let showDone = true;
 
@@ -32,12 +36,24 @@
 </script>
 
 {#if $todos.loading}
-  Loading...
+  <!-- {#if true} -->
+  <!-- <Loading description="Loading tasks..." /> -->
+  <div class="task-group">
+    <div class="todo-header">
+      <SkeletonPlaceholder style="height:3em;" />
+      <span>
+        <SkeletonPlaceholder style="height:48px;" />
+      </span>
+    </div>
+    <SkeletonPlaceholder style="width:100%;height:64px;margin-top:8px;" />
+    <SkeletonPlaceholder style="width:100%;height:64px;margin-top:8px;" />
+    <SkeletonPlaceholder style="width:100%;height:64px;margin-top:8px;" />
+  </div>
 {:else if $todos.error}
   Error
   {console.log($todos.error)}
 {:else}
-  <div class="task-tables">
+  <div>
     <div class="task-group">
       <div class="todo-header">
         <h3>Todo:</h3>

@@ -1,26 +1,12 @@
 <script>
+  import { Grid, Row, Column, Content } from "carbon-components-svelte";
 </script>
 
-<main>
+<div>
   <h1>Netlify & Svelte</h1>
   <h2>Todo Application</h2>
   <p>
     An application using Svelte for fontend and Netlify for hosting/serverless
     API.
   </p>
-</main>
-
-<style>
-  main {
-    text-align: center;
-    padding: 1em;
-    max-width: 240px;
-    margin: 0 auto;
-  }
-
-  @media (min-width: 640px) {
-    main {
-      max-width: none;
-    }
-  }
-</style>
+</div>

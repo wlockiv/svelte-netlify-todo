@@ -20,7 +20,7 @@
   const createTodo = mutation(CREATE_TODO);
 
   async function handleCreateTodo(event) {
-    event.preventDefault(0);
+    event.preventDefault();
     formState.initial = false;
 
     if (!formState.input) {
@@ -33,9 +33,9 @@
       await createTodo({
         variables: { text: formState.input },
       });
+      dispatch("refetchtodos");
       formState.input = null;
       buttonState = "dormant";
-      dispatch("refetchtodos");
     } catch (error) {
       console.log(error);
     }
