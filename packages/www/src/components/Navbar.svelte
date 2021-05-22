@@ -1,7 +1,7 @@
 <script>
+  import { link } from "svelte-routing";
   import { handleLogin, handleLogout } from "../services/identity";
   import { user } from "../store";
-  import { link } from "svelte-routing";
 
   $: isLoggedIn = Boolean($user);
 </script>

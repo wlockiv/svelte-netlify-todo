@@ -10,6 +10,8 @@
   import { client } from "./services/api";
   import { initializeIdentity } from "./services/identity";
   import { user } from "./store";
+  import { Grid, Row, Column, Icon, Link } from "carbon-components-svelte";
+  import Heart from "carbon-icons-svelte/lib/FavoriteFilled16";
 
   setClient(client);
   initializeIdentity(() => {
@@ -29,26 +31,55 @@
 <Router>
   <Header />
   <main>
+    <div style="height:80px" />
     <Route path="/"><Home /></Route>
     <ProtectedRoute path="/profile"><User /></ProtectedRoute>
     <ProtectedRoute path="/tasks"><Tasks /></ProtectedRoute>
   </main>
+  <footer class="bx--content" style="margin-top:0;">
+    <Grid>
+      <Row>
+        <Column>
+          Made with <Heart style="height:1em;" /> by
+          <Link href="https://github.com/wlockiv" target="_blank">Walker</Link>.
+        </Column>
+      </Row>
+    </Grid>
+    <!--  -->
+  </footer>
 </Router>
 
 <style lang="scss" global>
   html,
   body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
     height: 100%;
     margin: 0;
   }
 
+  header {
+    flex: 0 1 47px;
+  }
+
   main {
-    display: flex;
+    flex: 1 1 auto;
+    display: flex !important;
     flex-direction: column;
-    height: calc(100% - 64px);
-    align-items: center;
-    padding: 1em;
-    margin: 0 auto 0 auto;
+    width: 90%;
+    // align-items: center;
+    // margin: 0 auto;
+  }
+
+  hr {
+    width: 100%;
+  }
+
+  footer {
+    flex: 0 1 auto;
+    width: 100%;
   }
 
   :global(h1) {
@@ -56,6 +87,11 @@
     text-transform: uppercase;
     font-size: 4em;
     font-weight: 100;
+  }
+
+  footer {
+    margin-top: 20px !important;
+    background-color: #161616 !important;
   }
 
   @media (min-width: 640px) {

@@ -1,5 +1,4 @@
 <script>
-  import { Button, ButtonSet } from "carbon-components-svelte";
   import { Link } from "svelte-routing";
 </script>
 

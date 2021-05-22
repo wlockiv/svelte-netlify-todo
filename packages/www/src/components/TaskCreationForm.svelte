@@ -1,7 +1,4 @@
 <script>
-  import { mutation } from "svelte-apollo";
-  import { createEventDispatcher } from "svelte";
-  import { CREATE_TODO } from "../queries";
   import {
     Button,
     ButtonSet,
@@ -10,6 +7,9 @@
     TextInput,
   } from "carbon-components-svelte";
   import AddIcon from "carbon-icons-svelte/lib/Add16";
+  import { createEventDispatcher } from "svelte";
+  import { mutation } from "svelte-apollo";
+  import { CREATE_TODO } from "../queries";
 
   const formState = {
     initial: true,

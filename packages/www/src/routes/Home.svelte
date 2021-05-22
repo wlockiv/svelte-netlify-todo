@@ -1,5 +1,4 @@
 <script>
-  import { Grid, Row, Column, Content } from "carbon-components-svelte";
 </script>
 
 <div>

@@ -1,16 +1,11 @@
 <script>
+  import { SkeletonPlaceholder, Toggle } from "carbon-components-svelte";
   import { query } from "svelte-apollo";
-  import TaskRow from "./TaskRow.svelte";
-  import { GET_TODOS } from "../../queries";
-  import { crossfade } from "svelte/transition";
-  import { quintOut } from "svelte/easing";
   import { flip } from "svelte/animate";
-
-  import {
-    Loading,
-    SkeletonPlaceholder,
-    Toggle,
-  } from "carbon-components-svelte";
+  import { quintOut } from "svelte/easing";
+  import { crossfade } from "svelte/transition";
+  import { GET_TODOS } from "../../queries";
+  import TaskRow from "./TaskRow.svelte";
 
   let showDone = true;
 

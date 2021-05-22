@@ -1,14 +1,14 @@
 <script>
-  import { mutation } from "svelte-apollo";
-  import { DELETE_TODO, GET_TODOS, UPDATE_TODO } from "../../queries";
   import {
-    Tile,
     Button,
+    InlineLoading,
     OverflowMenu,
     OverflowMenuItem,
-    InlineLoading,
+    Tile,
   } from "carbon-components-svelte";
   import { createEventDispatcher } from "svelte";
+  import { mutation } from "svelte-apollo";
+  import { DELETE_TODO, UPDATE_TODO } from "../../queries";
 
   export let task;
   export let light = false;

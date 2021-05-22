@@ -9,12 +9,7 @@
   import ListChecked20 from "carbon-icons-svelte/lib/ListChecked20";
   import { navigate } from "svelte-routing";
   import { user } from "../store";
-  // import { handleLogin } from "../services/identity";
-  import netlifyIdentity from "netlify-identity-widget";
-
-  function handleLogin() {
-    netlifyIdentity.open("login");
-  }
+  import { handleLogin } from "../services/identity";
 </script>
 
 <Header
@@ -40,4 +35,3 @@
     {/if}
   </HeaderUtilities>
 </Header>
-<div style="height:64px" />
