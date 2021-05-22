@@ -1,5 +1,4 @@
 <script>
-  import TaskTable from "../components/TaskTable";
 </script>
 
 <main>

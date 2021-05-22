@@ -1,18 +1,19 @@
 <script>
   import { query } from "svelte-apollo";
-  import TaskCreationForm from "./TaskCreationForm.svelte";
   import TaskRow from "./TaskRow.svelte";
-  import { GET_TODOS } from "./queries";
+  import { GET_TODOS } from "../../queries";
   import { crossfade } from "svelte/transition";
   import { quintOut } from "svelte/easing";
   import { flip } from "svelte/animate";
+
+  import { Toggle } from "carbon-components-svelte";
 
   let showDone = true;
 
   const [send, receive] = crossfade({
     duration: (d) => Math.sqrt(d * 200),
 
-    fallback(node, params) {
+    fallback(node) {
       const style = getComputedStyle(node);
       const transform = style.transform == "none" ? "" : style.transform;
 
@@ -36,24 +37,28 @@
   Error
   {console.log($todos.error)}
 {:else}
-  <section class="task-display">
-    <TaskCreationForm on:refetchtodos={todos.refetch} />
-    <hr />
-    <div class="task-tables">
-      <div class="task-group">
-        <div class="todo-header">
-          <h3>Todo:</h3>
-          <label for="show-content">
-            Show Done
-            <input
-              name="show-content"
-              type="checkbox"
-              style="margin: 0"
-              bind:checked={showDone}
-            />
-          </label>
+  <div class="task-tables">
+    <div class="task-group">
+      <div class="todo-header">
+        <h3>Todo:</h3>
+        <span>
+          <Toggle bind:toggled={showDone} labelText="Show done" size="sm" />
+        </span>
+      </div>
+      {#each $todos.data.todos.filter((t) => !t.done) as task (task.id)}
+        <div
+          in:receive|local={{ key: task.id }}
+          out:send|local={{ key: task.id }}
+          animate:flip={{ duration: 200 }}
+        >
+          <TaskRow {task} on:refetchtodos={todos.refetch} />
         </div>
-        {#each $todos.data.todos.filter((t) => !t.done) as task (task.id)}
+      {/each}
+    </div>
+    {#if showDone}
+      <div class="task-group">
+        <h3>Done:</h3>
+        {#each $todos.data.todos.filter((t) => t.done) as task (task.id)}
           <div
             in:receive|local={{ key: task.id }}
             out:send|local={{ key: task.id }}
@@ -63,37 +68,11 @@
           </div>
         {/each}
       </div>
-      {#if showDone}
-        <div class="task-group">
-          <h3>Done:</h3>
-          {#each $todos.data.todos.filter((t) => t.done) as task (task.id)}
-            <div
-              in:receive|local={{ key: task.id }}
-              out:send|local={{ key: task.id }}
-              animate:flip={{ duration: 200 }}
-            >
-              <TaskRow {task} />
-            </div>
-          {/each}
-        </div>
-      {/if}
-    </div>
-  </section>
+    {/if}
+  </div>
 {/if}
 
 <style>
-  .task-display {
-    display: flex;
-    flex-direction: column;
-    border-radius: 4px;
-    width: 100%;
-    max-width: 720px;
-  }
-
-  .task-display > :first-child {
-    margin-top: 0;
-  }
-
   .todo-header {
     display: flex;
     justify-content: space-between;
@@ -103,11 +82,7 @@
   .task-group {
     display: flex;
     flex-direction: column;
-    margin-top: 16px;
-  }
-
-  .task-tables > :first-child {
-    margin-top: 0;
+    margin-top: 24px;
   }
 
   .task-group > div {
@@ -116,13 +91,6 @@
 
   .task-group > :first-child {
     margin-top: 0px;
-  }
-
-  hr {
-    width: 99%;
-    border: unset;
-    border-top: solid 1px #aaa;
-    margin: 24px auto;
   }
 
   h3 {

@@ -1,18 +1,28 @@
 <script>
+  import { Tile } from "carbon-components-svelte";
   import { user } from "../store";
 </script>
 
 <h1>User Profile</h1>
-<div class="profile-card">
-  <p>Email: {$user.email}</p>
-  <p>Name: {$user.name}</p>
-</div>
+<hr />
+<h2>Details</h2>
+<Tile style="margin-top:8px">
+  <h3>Name</h3>
+  <p>{$user.name}</p>
+</Tile>
+<Tile style="margin-top:8px">
+  <h3>Email</h3>
+  <p>{$user.email}</p>
+</Tile>
 
 <style>
-  .profile-card {
-    width: 90%;
-    max-width: 400px;
-    border: solid 1px #ccc;
-    border-radius: 4px;
+  h1 {
+    text-align: left;
+  }
+
+  h3 {
+    text-align: left;
+    font-size: 1em;
+    margin-bottom: 4px;
   }
 </style>

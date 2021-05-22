@@ -1,15 +1,14 @@
 <script>
-  import { ApolloClient, createHttpLink, InMemoryCache } from "@apollo/client";
-  import { setContext as apolloSetContext } from "@apollo/client/link/context";
+  import "carbon-components-svelte/css/g90";
   import { setClient } from "svelte-apollo";
   import { Route, Router } from "svelte-routing";
-  import Navbar from "./components/Navbar.svelte";
+  import Header from "./components/Header.svelte";
   import Home from "./routes/Home.svelte";
   import Tasks from "./routes/Tasks.svelte";
   import User from "./routes/User.svelte";
+  import { client } from "./services/api";
   import { initializeIdentity } from "./services/identity";
   import { user } from "./store";
-  import { client } from "./services/api";
 
   setClient(client);
 
@@ -26,9 +25,7 @@
 </svelte:head>
 
 <Router>
-  <header>
-    <Navbar />
-  </header>
+  <Header />
   <main>
     <Route path="/"><Home /></Route>
     <Route path="/profile"><User /></Route>
@@ -36,15 +33,13 @@
   </main>
 </Router>
 
-<style>
+<style lang="scss" global>
   main {
     display: flex;
     flex-direction: column;
     align-items: center;
-    text-align: center;
     padding: 1em;
-    /* max-width: 240px; */
-    margin: 0 auto;
+    margin: 64px auto 0 auto;
   }
 
   :global(h1) {
@@ -56,7 +51,7 @@
 
   @media (min-width: 640px) {
     main {
-      max-width: none;
+      max-width: 720px;
     }
   }
 </style>
