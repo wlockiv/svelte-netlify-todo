@@ -8,15 +8,11 @@
   import Tasks from "./routes/Tasks.svelte";
   import User from "./routes/User.svelte";
   import { client } from "./services/api";
-  import { initializeIdentity } from "./services/identity";
   import { user } from "./store";
   import { Grid, Row, Column, Icon, Link } from "carbon-components-svelte";
   import Heart from "carbon-icons-svelte/lib/FavoriteFilled16";
 
   setClient(client);
-  initializeIdentity(() => {
-    client.clearStore();
-  });
 
   $: $user,
     (client.headers = {
@@ -30,7 +26,7 @@
 
 <Router>
   <Header />
-  <main>
+  <main id="app-main">
     <div style="height:80px" />
     <Route path="/"><Home /></Route>
     <ProtectedRoute path="/profile"><User /></ProtectedRoute>

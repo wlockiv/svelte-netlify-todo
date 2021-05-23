@@ -1,7 +1,18 @@
 <script>
   import { ClickableTile, Tile } from "carbon-components-svelte";
-  import { handleLogout } from "../services/identity";
+  import { getClient } from "svelte-apollo";
+  import { navigate } from "svelte-routing";
+  import { logout } from "../services/identity";
   import { user } from "../store";
+
+  const client = getClient();
+
+  function handleLogout() {
+    logout(() => {
+      client.clearStore();
+      navigate("/");
+    });
+  }
 </script>
 
 <h1>User Profile</h1>

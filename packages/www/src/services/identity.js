@@ -1,28 +1,25 @@
-import netlifyIdentity from "netlify-identity-widget";
-import { navigate } from "svelte-routing";
+import GoTrue from "gotrue-js";
 import { user } from "../store";
 
-export function initializeIdentity(logoutCleanupCb) {
-  netlifyIdentity.init();
+const auth = new GoTrue({
+  APIUrl: "https://svelte-netlify-todo.netlify.app/.netlify/identity",
+});
 
-  // Netlify identity event hooks
-  netlifyIdentity.on("login", (_user) => {
-    user.login(_user);
-    netlifyIdentity.close();
-    navigate("/tasks");
-  });
-
-  netlifyIdentity.on("logout", () => {
-    navigate("/");
-    user.logout();
-    logoutCleanupCb();
-  });
+export async function login({ email, password }, cb) {
+  try {
+    const response = await auth.login(email, password, true);
+    user.login(response);
+    cb();
+  } catch (error) {
+    throw error;
+  }
 }
 
-export function handleLogin() {
-  netlifyIdentity.open("login");
+export async function logout(cb) {
+  const _user = auth.currentUser();
+  await _user.logout();
+  cb();
+  user.logout();
 }
 
-export function handleLogout() {
-  netlifyIdentity.logout();
-}
+export async function signup(cb) {}

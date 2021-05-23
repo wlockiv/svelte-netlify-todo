@@ -1,15 +1,17 @@
 <script>
   import {
-    Header,
-    HeaderUtilities,
-    HeaderGlobalAction,
     Button,
+    Header,
+    HeaderGlobalAction,
+    HeaderUtilities,
   } from "carbon-components-svelte";
-  import UserAvatar20 from "carbon-icons-svelte/lib/UserAvatar20";
   import ListChecked20 from "carbon-icons-svelte/lib/ListChecked20";
+  import UserAvatar20 from "carbon-icons-svelte/lib/UserAvatar20";
   import { navigate } from "svelte-routing";
   import { user } from "../store";
-  import { handleLogin } from "../services/identity";
+  import LoginModal from "./LoginModal.svelte";
+
+  let loginOpen = false;
 </script>
 
 <Header
@@ -31,7 +33,8 @@
         on:click={() => navigate("/profile")}
       />
     {:else}
-      <Button on:click={handleLogin}>Login</Button>
+      <Button on:click={() => (loginOpen = true)}>Login</Button>
     {/if}
   </HeaderUtilities>
 </Header>
+<LoginModal bind:open={loginOpen} />
