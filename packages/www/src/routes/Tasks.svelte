@@ -9,6 +9,7 @@
 
 <h1>Tasks</h1>
 <hr />
+
 <TaskCreationForm on:refetchtodos={todos.refetch} />
 <TaskTable />
 

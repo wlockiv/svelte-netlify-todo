@@ -41,7 +41,6 @@
         </Column>
       </Row>
     </Grid>
-    <!--  -->
   </footer>
 </Router>
 

@@ -5,6 +5,7 @@
     FluidForm,
     InlineLoading,
     TextInput,
+    Form,
   } from "carbon-components-svelte";
   import AddIcon from "carbon-icons-svelte/lib/Add16";
   import { createEventDispatcher } from "svelte";
@@ -41,16 +42,16 @@
   }
 
   $: buttonProps = {
-    type: "submit",
-    icon: AddIcon,
-    hasIconOnly: true,
-    iconDescription: "Add Todo",
-    size: "small",
     disabled: !formState.input ? true : false,
+    icon: AddIcon,
+    iconDescription: "Add task",
+    size: "small",
+    style: "max-width:unset",
+    type: "submit",
   };
 </script>
 
-<FluidForm style="display:flex;" on:submit={handleCreateTodo}>
+<FluidForm on:submit={handleCreateTodo}>
   <TextInput
     labelText="New task"
     size="sm"
@@ -59,9 +60,9 @@
   />
   <ButtonSet>
     {#if buttonState !== "dormant"}
-      <InlineLoading style="padding:0 8px;" />
+      <InlineLoading style="padding:0 8px;" description="Adding..." />
     {:else}
-      <Button {...buttonProps} />
+      <Button {...buttonProps}>Add task</Button>
     {/if}
   </ButtonSet>
 </FluidForm>

@@ -2,16 +2,20 @@
   import {
     Button,
     Header,
+    HeaderAction,
     HeaderGlobalAction,
+    HeaderPanelLink,
+    HeaderPanelLinks,
     HeaderUtilities,
   } from "carbon-components-svelte";
-  import ListChecked20 from "carbon-icons-svelte/lib/ListChecked20";
-  import UserAvatar20 from "carbon-icons-svelte/lib/UserAvatar20";
+  import ListChecked16 from "carbon-icons-svelte/lib/ListChecked20";
+  import UserAvatar16 from "carbon-icons-svelte/lib/UserAvatar20";
   import { navigate } from "svelte-routing";
   import { user } from "../store";
   import LoginModal from "./LoginModal.svelte";
 
   let loginOpen = false;
+  let isOpen = false;
 </script>
 
 <Header
@@ -22,14 +26,25 @@
 >
   <HeaderUtilities>
     {#if !!$user}
+      <!-- <HeaderAction bind:isOpen>
+        <HeaderPanelLinks>
+          <HeaderPanelLink on:click={() => navigate("/tasks")}>
+            Your Todo List
+          </HeaderPanelLink>
+          <HeaderPanelLink on:click={() => navigate("/profile")}>
+            User Profile
+          </HeaderPanelLink>
+        </HeaderPanelLinks>
+      </HeaderAction> -->
+
       <HeaderGlobalAction
         aria-label="User Avatar"
-        icon={ListChecked20}
+        icon={ListChecked16}
         on:click={() => navigate("/tasks")}
       />
       <HeaderGlobalAction
         aria-label="Todo List"
-        icon={UserAvatar20}
+        icon={UserAvatar16}
         on:click={() => navigate("/profile")}
       />
     {:else}
