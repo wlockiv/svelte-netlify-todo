@@ -9,13 +9,19 @@
   import User from "./routes/User.svelte";
   import { client } from "./services/api";
   import { user } from "./store";
-  import { Grid, Row, Column, Icon, Link } from "carbon-components-svelte";
+  import {
+    Grid,
+    Row,
+    Column,
+    Icon,
+    Link,
+    ToastNotification,
+  } from "carbon-components-svelte";
   import Heart from "carbon-icons-svelte/lib/FavoriteFilled16";
   import { confirmEmail } from "./services/identity";
 
   setClient(client);
 
-  console.log(window.location);
   if (window.location.hash.includes("confirmation_token")) {
     const token = window.location.hash.slice(20);
     confirmEmail(token, () => navigate("/tasks"));

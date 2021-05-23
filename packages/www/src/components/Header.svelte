@@ -7,6 +7,7 @@
     HeaderPanelLink,
     HeaderPanelLinks,
     HeaderUtilities,
+    ToastNotification,
   } from "carbon-components-svelte";
   import ListChecked16 from "carbon-icons-svelte/lib/ListChecked20";
   import UserAvatar16 from "carbon-icons-svelte/lib/UserAvatar20";
@@ -15,7 +16,6 @@
   import LoginModal from "./LoginModal.svelte";
 
   let loginOpen = false;
-  let isOpen = false;
 </script>
 
 <Header
@@ -26,17 +26,6 @@
 >
   <HeaderUtilities>
     {#if !!$user}
-      <!-- <HeaderAction bind:isOpen>
-        <HeaderPanelLinks>
-          <HeaderPanelLink on:click={() => navigate("/tasks")}>
-            Your Todo List
-          </HeaderPanelLink>
-          <HeaderPanelLink on:click={() => navigate("/profile")}>
-            User Profile
-          </HeaderPanelLink>
-        </HeaderPanelLinks>
-      </HeaderAction> -->
-
       <HeaderGlobalAction
         aria-label="User Avatar"
         icon={ListChecked16}

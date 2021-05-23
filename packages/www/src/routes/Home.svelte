@@ -1,6 +1,3 @@
-<script>
-</script>
-
 <div>
   <h1>Netlify & Svelte</h1>
   <h2>Todo Application</h2>

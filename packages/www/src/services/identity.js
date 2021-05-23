@@ -23,7 +23,7 @@ export async function logout(cb) {
 }
 
 export async function signup({ name, email, password }, cb) {
-  await auth.signup(email, password, { name });
+  await auth.signup(email, password, { full_name: name });
   cb && cb();
 }
 

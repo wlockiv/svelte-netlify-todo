@@ -1,8 +1,15 @@
 <script>
-  import { Modal, TextInput } from "carbon-components-svelte";
+  import {
+    Modal,
+    TextInput,
+    ToastNotification,
+  } from "carbon-components-svelte";
+  import { createEventDispatcher } from "svelte";
   import { navigate } from "svelte-routing";
   import ProtectedRoute from "../routes/ProtectedRoute.svelte";
   import { login, signup } from "../services/identity";
+
+  const dispatch = createEventDispatcher();
 
   export let open = true;
   export let formMode = "login";
@@ -24,6 +31,21 @@
     signupSuccess = false;
   }
 
+  function reset() {
+    loading = false;
+  }
+
+  function parseError({ message }) {
+    if (message.includes("invalid_grant")) {
+      return "That username/password combination doesn't exist. Try again.";
+    } else if (message.includes("A user with this email")) {
+      return "A user with this email address has already been registerd.";
+    } else {
+      console.log(message);
+      return "An unknown error occurred. Check your internet connection and try again.";
+    }
+  }
+
   async function handleLogin(e) {
     e.preventDefault();
     loading = true;
@@ -32,13 +54,8 @@
       await login(formInput, () => navigate("/tasks"));
       teardown();
     } catch (error) {
-      if (error.message.includes("invalid_grant")) {
-        submitError =
-          "That username/password combination does not exist. Try again.";
-      } else {
-        console.log(error);
-      }
-      loading = false;
+      submitError = parseError(error);
+      reset();
     }
   }
 
@@ -49,8 +66,12 @@
     try {
       await signup(formInput);
       signupSuccess = true;
+      setTimeout(() => {
+        teardown();
+      }, 3000);
     } catch (error) {
-      submitError = error;
+      submitError = parseError(error);
+      reset();
     }
   }
 
@@ -61,6 +82,7 @@
       formMode = "login";
     }
     submitError = "";
+    reset();
   }
 </script>
 
