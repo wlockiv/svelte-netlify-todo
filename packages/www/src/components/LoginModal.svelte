@@ -1,11 +1,17 @@
 <script>
   import { Modal, TextInput } from "carbon-components-svelte";
   import { navigate } from "svelte-routing";
-  import { login } from "../services/identity";
+  import ProtectedRoute from "../routes/ProtectedRoute.svelte";
+  import { login, signup } from "../services/identity";
 
   export let open = true;
   export let formMode = "login";
+
+  // For testing...
+  open = true;
+  formMode = "signup";
   let loading = false;
+
   let formInput = {
     name: "",
     email: "",
@@ -19,7 +25,8 @@
     formInput = { name: "", email: "", password: "" };
   }
 
-  async function handleLogin() {
+  async function handleLogin(e) {
+    e.preventDefault();
     loading = true;
     submitError = "";
     try {
@@ -33,6 +40,17 @@
         console.log(error);
       }
       loading = false;
+    }
+  }
+
+  async function handleSignup(e) {
+    e.preventDefault();
+    loading = true;
+    submitError = "";
+    try {
+      await signup(formInput);
+    } catch (error) {
+      console.log(error);
     }
   }
 
@@ -54,7 +72,7 @@
   primaryButtonDisabled={loading}
   secondaryButtonText={formMode === "login" ? "Sign up" : "Login"}
   hasForm={true}
-  on:submit={handleLogin}
+  on:submit={formMode === "login" ? handleLogin : handleSignup}
   on:click:button--secondary={toggleFormMode}
   on:open
   on:close

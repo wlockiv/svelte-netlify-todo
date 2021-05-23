@@ -9,7 +9,7 @@ export async function login({ email, password }, cb) {
   try {
     const response = await auth.login(email, password, true);
     user.login(response);
-    cb();
+    cb && cb();
   } catch (error) {
     throw error;
   }
@@ -18,8 +18,11 @@ export async function login({ email, password }, cb) {
 export async function logout(cb) {
   const _user = auth.currentUser();
   await _user.logout();
-  cb();
+  cb && cb();
   user.logout();
 }
 
-export async function signup(cb) {}
+export async function signup({ name, email, password }, cb) {
+  auth.signup(email, password, { name });
+  cb && cb();
+}

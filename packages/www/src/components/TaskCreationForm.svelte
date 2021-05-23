@@ -5,7 +5,6 @@
     FluidForm,
     InlineLoading,
     TextInput,
-    Form,
   } from "carbon-components-svelte";
   import AddIcon from "carbon-icons-svelte/lib/Add16";
   import { createEventDispatcher } from "svelte";
