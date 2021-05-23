@@ -4,7 +4,6 @@
   import { login } from "../services/identity";
 
   export let open = true;
-  open = true;
   export let formMode = "login";
   let loading = false;
   let formInput = {
