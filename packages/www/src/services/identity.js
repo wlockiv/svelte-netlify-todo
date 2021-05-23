@@ -1,4 +1,4 @@
-import GoTrue from "gotrue-js";
+import GoTrue, { User } from "gotrue-js";
 import { user } from "../store";
 
 const auth = new GoTrue({
@@ -23,6 +23,16 @@ export async function logout(cb) {
 }
 
 export async function signup({ name, email, password }, cb) {
-  auth.signup(email, password, { name });
+  await auth.signup(email, password, { name });
   cb && cb();
+}
+
+export async function confirmEmail(token, cb) {
+  try {
+    const _user = await auth.confirm(token, true);
+    user.login(_user);
+    cb && cb();
+  } catch (error) {
+    throw error;
+  }
 }

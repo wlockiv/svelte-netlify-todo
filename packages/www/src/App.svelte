@@ -1,7 +1,7 @@
 <script>
   import "carbon-components-svelte/css/g90";
   import { setClient } from "svelte-apollo";
-  import { Route, Router } from "svelte-routing";
+  import { navigate, Route, Router } from "svelte-routing";
   import Header from "./components/Header.svelte";
   import Home from "./routes/Home.svelte";
   import ProtectedRoute from "./routes/ProtectedRoute.svelte";
@@ -11,8 +11,15 @@
   import { user } from "./store";
   import { Grid, Row, Column, Icon, Link } from "carbon-components-svelte";
   import Heart from "carbon-icons-svelte/lib/FavoriteFilled16";
+  import { confirmEmail } from "./services/identity";
 
   setClient(client);
+
+  console.log(window.location);
+  if (window.location.hash.includes("confirmation_token")) {
+    const token = window.location.hash.slice(20);
+    confirmEmail(token, () => navigate("/tasks"));
+  }
 
   $: $user,
     (client.headers = {

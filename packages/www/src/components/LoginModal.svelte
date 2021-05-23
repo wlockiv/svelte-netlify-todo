@@ -6,10 +6,8 @@
 
   export let open = true;
   export let formMode = "login";
+  let signupSuccess;
 
-  // For testing...
-  open = true;
-  formMode = "signup";
   let loading = false;
 
   let formInput = {
@@ -23,6 +21,7 @@
     open = false;
     loading = false;
     formInput = { name: "", email: "", password: "" };
+    signupSuccess = false;
   }
 
   async function handleLogin(e) {
@@ -49,8 +48,9 @@
     submitError = "";
     try {
       await signup(formInput);
+      signupSuccess = true;
     } catch (error) {
-      console.log(error);
+      submitError = error;
     }
   }
 
@@ -68,7 +68,7 @@
   size="xs"
   bind:open
   modalHeading={formMode === "login" ? "Login" : "Sign up"}
-  primaryButtonText="Login"
+  primaryButtonText={formMode === "login" ? "Login" : "Sign up"}
   primaryButtonDisabled={loading}
   secondaryButtonText={formMode === "login" ? "Sign up" : "Login"}
   hasForm={true}
@@ -104,5 +104,8 @@
   <br />
   {#if submitError}
     <p style="color:#FF3E00">{submitError}</p>
+  {/if}
+  {#if signupSuccess}
+    <p>Confirmation sent!</p>
   {/if}
 </Modal>
