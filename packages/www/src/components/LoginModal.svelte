@@ -106,6 +106,6 @@
     <p style="color:#FF3E00">{submitError}</p>
   {/if}
   {#if signupSuccess}
-    <p>Confirmation sent!</p>
+    <p>Confirmation sent! Check your email inbox for a verification link.</p>
   {/if}
 </Modal>
