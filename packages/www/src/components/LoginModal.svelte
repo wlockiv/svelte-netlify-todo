@@ -3,7 +3,8 @@
   import { navigate } from "svelte-routing";
   import { login } from "../services/identity";
 
-  export let open;
+  export let open = true;
+  open = true;
   export let formMode = "login";
   let loading = false;
   let formInput = {
@@ -42,6 +43,7 @@
     } else {
       formMode = "login";
     }
+    submitError = "";
   }
 </script>
 

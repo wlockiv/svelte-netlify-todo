@@ -31,8 +31,6 @@
 </script>
 
 {#if $todos.loading}
-  <!-- {#if true} -->
-  <!-- <Loading description="Loading tasks..." /> -->
   <div class="task-group">
     <div class="todo-header">
       <SkeletonPlaceholder style="height:3em;" />
@@ -75,7 +73,7 @@
             out:send|local={{ key: task.id }}
             animate:flip={{ duration: 200 }}
           >
-            <TaskRow {task} />
+            <TaskRow {task} on:refetchtodos={todos.refetch} />
           </div>
         {/each}
       </div>

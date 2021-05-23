@@ -11,51 +11,43 @@
   import { mutation } from "svelte-apollo";
   import { CREATE_TODO } from "../queries";
 
-  const formState = {
-    initial: true,
+  let formState = {
     input: "",
   };
+
+  // "dormant" or "active"
+  let buttonState = "dormant";
 
   const dispatch = createEventDispatcher();
   const createTodo = mutation(CREATE_TODO);
 
   async function handleCreateTodo(event) {
     event.preventDefault();
-    formState.initial = false;
-
-    if (!formState.input) {
-      emptyError = true;
-      return;
-    }
+    const _input = formState.input;
+    formState = {
+      input: "",
+    };
 
     try {
       buttonState = "active";
       await createTodo({
-        variables: { text: formState.input },
+        variables: { text: _input },
       });
       dispatch("refetchtodos");
-      formState.input = null;
       buttonState = "dormant";
     } catch (error) {
       console.log(error);
     }
   }
 
-  const buttonProps = {
+  $: buttonProps = {
     type: "submit",
     icon: AddIcon,
     hasIconOnly: true,
     iconDescription: "Add Todo",
     size: "small",
+    disabled: !formState.input ? true : false,
   };
-
-  const buttonStateMap = {
-    active: "finished",
-    inactive: "dormant",
-    finished: "dormant",
-  };
-
-  let buttonState = "dormant";
 </script>
 
 <FluidForm style="display:flex;" on:submit={handleCreateTodo}>
@@ -63,7 +55,6 @@
     labelText="New task"
     size="sm"
     placeholder="What needs doing?"
-    disabled={buttonState == "active" ? true : false}
     bind:value={formState.input}
   />
   <ButtonSet>
@@ -73,10 +64,6 @@
       <Button {...buttonProps} />
     {/if}
   </ButtonSet>
-  <!-- {#await submitPromise}
-    <Button {...buttonProps} disabled={true} />
-  {:then}
-  {/await} -->
 </FluidForm>
 
 <style>
