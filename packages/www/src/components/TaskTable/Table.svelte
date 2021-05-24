@@ -45,7 +45,7 @@
 {:else if $todos.error}
   Error
   {console.log($todos.error)}
-{:else}
+{:else if $todos.data.todos.length}
   <div>
     <div class="task-group">
       <div class="todo-header">
@@ -78,6 +78,10 @@
         {/each}
       </div>
     {/if}
+  </div>
+{:else}
+  <div class="task-group">
+    <p>You don't have any todos yet!</p>
   </div>
 {/if}
 
