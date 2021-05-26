@@ -6,7 +6,7 @@
 
   const todos = query(GET_TODOS);
 
-  const todoTables = [
+  const tableProps = [
     {
       heading: "Todo:",
       filter: (task) => !task.done,
@@ -23,7 +23,7 @@
 
 <TaskCreationForm on:refetchtodos={todos.refetch} />
 
-{#each todoTables as tt}
+{#each tableProps as tt}
   <TaskTable {todos} {...tt} />
 {/each}
 

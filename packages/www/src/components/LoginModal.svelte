@@ -1,10 +1,7 @@
 <script>
-  import {
-    Modal,
-    TextInput,
-  } from "carbon-components-svelte";
+  import { Modal, TextInput } from "carbon-components-svelte";
   import { navigate } from "svelte-routing";
-    import { login, signup } from "../services/identity";
+  import { login, signup } from "../services/identity";
 
   export let open = true;
   export let formMode = "login";
