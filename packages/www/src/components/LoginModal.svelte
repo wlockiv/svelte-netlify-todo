@@ -2,14 +2,9 @@
   import {
     Modal,
     TextInput,
-    ToastNotification,
   } from "carbon-components-svelte";
-  import { createEventDispatcher } from "svelte";
   import { navigate } from "svelte-routing";
-  import ProtectedRoute from "../routes/ProtectedRoute.svelte";
-  import { login, signup } from "../services/identity";
-
-  const dispatch = createEventDispatcher();
+    import { login, signup } from "../services/identity";
 
   export let open = true;
   export let formMode = "login";

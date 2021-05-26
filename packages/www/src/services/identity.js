@@ -1,4 +1,4 @@
-import GoTrue, { User } from "gotrue-js";
+import GoTrue from "gotrue-js";
 import { user } from "../store";
 
 const auth = new GoTrue({

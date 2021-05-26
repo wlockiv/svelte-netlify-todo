@@ -2,12 +2,8 @@
   import {
     Button,
     Header,
-    HeaderAction,
     HeaderGlobalAction,
-    HeaderPanelLink,
-    HeaderPanelLinks,
     HeaderUtilities,
-    ToastNotification,
   } from "carbon-components-svelte";
   import ListChecked16 from "carbon-icons-svelte/lib/ListChecked20";
   import UserAvatar16 from "carbon-icons-svelte/lib/UserAvatar20";

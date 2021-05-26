@@ -1,13 +1,16 @@
 <script>
-  import { SkeletonPlaceholder, Toggle } from "carbon-components-svelte";
-  import { query } from "svelte-apollo";
+  import { SkeletonPlaceholder } from "carbon-components-svelte";
   import { flip } from "svelte/animate";
   import { quintOut } from "svelte/easing";
   import { crossfade } from "svelte/transition";
-  import { GET_TODOS } from "../../queries";
   import TaskRow from "./TaskRow.svelte";
 
-  let showDone = true;
+  export let todos;
+  export let heading;
+  export let filter;
+
+  $: filteredTodos =
+    !$todos.loading && !$todos.error ? $todos.data.todos.filter(filter) : [];
 
   const [send, receive] = crossfade({
     duration: (d) => Math.sqrt(d * 200),
@@ -26,8 +29,6 @@
       };
     },
   });
-
-  const todos = query(GET_TODOS);
 </script>
 
 {#if $todos.loading}
@@ -45,29 +46,14 @@
 {:else if $todos.error}
   Error
   {console.log($todos.error)}
-{:else if $todos.data.todos.length}
+{:else}
   <div>
     <div class="task-group">
       <div class="todo-header">
-        <h3>Todo:</h3>
-        <span>
-          <Toggle bind:toggled={showDone} labelText="Show done" size="sm" />
-        </span>
+        <h3>{heading}</h3>
       </div>
-      {#each $todos.data.todos.filter((t) => !t.done) as task (task.id)}
-        <div
-          in:receive|local={{ key: task.id }}
-          out:send|local={{ key: task.id }}
-          animate:flip={{ duration: 200 }}
-        >
-          <TaskRow {task} on:refetchtodos={todos.refetch} />
-        </div>
-      {/each}
-    </div>
-    {#if showDone}
-      <div class="task-group">
-        <h3>Done:</h3>
-        {#each $todos.data.todos.filter((t) => t.done) as task (task.id)}
+      {#if filteredTodos.length}
+        {#each filteredTodos as task (task.id)}
           <div
             in:receive|local={{ key: task.id }}
             out:send|local={{ key: task.id }}
@@ -76,12 +62,12 @@
             <TaskRow {task} on:refetchtodos={todos.refetch} />
           </div>
         {/each}
-      </div>
-    {/if}
-  </div>
-{:else}
-  <div class="task-group">
-    <p>You don't have any todos yet!</p>
+      {:else}
+        <div class="task-group">
+          <p>Nothing to show here yet!</p>
+        </div>
+      {/if}
+    </div>
   </div>
 {/if}
 

@@ -5,6 +5,7 @@
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c -w",
+    "lint": "eslint . --ext .js,.svelte",
     "start": "sirv public -s --no-clear",
     "start:dev": "sirv public -s --dev"
   },

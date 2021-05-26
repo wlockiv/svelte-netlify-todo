@@ -11,9 +11,7 @@
   import { mutation } from "svelte-apollo";
   import { CREATE_TODO } from "../queries";
 
-  let formState = {
-    input: "",
-  };
+  let inputValue = "";
 
   // "dormant" or "active"
   let buttonState = "dormant";
@@ -23,10 +21,8 @@
 
   async function handleCreateTodo(event) {
     event.preventDefault();
-    const _input = formState.input;
-    formState = {
-      input: "",
-    };
+    const _input = inputValue;
+    inputValue = "";
 
     try {
       buttonState = "active";
@@ -41,7 +37,7 @@
   }
 
   $: buttonProps = {
-    disabled: !formState.input ? true : false,
+    disabled: !inputValue ? true : false,
     icon: AddIcon,
     iconDescription: "Add task",
     size: "small",
@@ -55,7 +51,7 @@
     labelText="New task"
     size="sm"
     placeholder="What needs doing?"
-    bind:value={formState.input}
+    bind:value={inputValue}
   />
   <ButtonSet>
     {#if buttonState !== "dormant"}

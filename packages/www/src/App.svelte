@@ -13,9 +13,7 @@
     Grid,
     Row,
     Column,
-    Icon,
     Link,
-    ToastNotification,
   } from "carbon-components-svelte";
   import Heart from "carbon-icons-svelte/lib/FavoriteFilled16";
   import { confirmEmail } from "./services/identity";
@@ -57,54 +55,3 @@
   </footer>
 </Router>
 
-<style lang="scss" global>
-  html,
-  body {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-    margin: 0;
-  }
-
-  header {
-    flex: 0 1 47px;
-  }
-
-  main {
-    flex: 1 1 auto;
-    display: flex !important;
-    flex-direction: column;
-    width: 90%;
-    // align-items: center;
-    // margin: 0 auto;
-  }
-
-  hr {
-    width: 100%;
-  }
-
-  footer {
-    flex: 0 1 auto;
-    width: 100%;
-  }
-
-  :global(h1) {
-    color: #ff3e00;
-    text-transform: uppercase;
-    font-size: 4em;
-    font-weight: 100;
-  }
-
-  footer {
-    margin-top: 20px !important;
-    background-color: #161616 !important;
-  }
-
-  @media (min-width: 640px) {
-    main {
-      max-width: 720px;
-    }
-  }
-</style>
